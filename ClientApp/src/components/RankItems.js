@@ -13,16 +13,18 @@ const RankItems = () => {
             })
             .then(data => {
                 setItems(data);
+                console.log(data);
             })
-    })
+    }, []);
 
 
     //This is the actual rendering part of the React component. 
     return (
         <main>
             {
-                (items != null) ? items.map((item) => <h3>{item.Title}</h3>):<div>Loading...</div>
+                (items.length >  0) ? items.map((item) => <h3 key={item.Id}>{item.title}</h3>) : <div>Loading...</div>
             }
         </main>
     )
 }
+export default RankItems;

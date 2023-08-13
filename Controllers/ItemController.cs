@@ -16,14 +16,14 @@ namespace TierlistMaker.Controllers
             new ItemModel { Id = 5, Title = "Rainbow 6 Seige", ImageId = 5, Ranking = 0, ItemType = 1 },
             new ItemModel { Id = 6, Title = "Rocket League", ImageId = 6, Ranking = 0, ItemType = 1 },
             new ItemModel { Id = 7, Title = "Overwatch", ImageId = 7, Ranking = 0, ItemType = 1 },
-            new ItemModel { Id = 8, Title = "Super Smash Bros", ImageId = 8, Ranking = 0, ItemType = 1 },
+            new ItemModel { Id = 8, Title = "Super Smash Bros", ImageId = 8, Ranking = 0, ItemType = 1 }
         };
 
 
         /// <summary>
         /// Returns array of all items of a given item type
         /// </summary>
-        [HttpGet("{itemType:int")]
+        [HttpGet("{itemType:int}")]
         public ItemModel[] Get(int itemType)
         {
             ItemModel[] items = Items.Where(i => i.ItemType == itemType).ToArray();
