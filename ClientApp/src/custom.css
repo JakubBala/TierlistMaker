@@ -12,3 +12,74 @@ code {
   background-color: #1b6ec2;
   border-color: #1861ac;
 }
+
+main{
+    display:flex;
+    flex-direction:column;
+}
+
+/*UNRANKED ITEMS*/
+
+.items-not-ranked {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    margin-bottom: 15px;
+    align-self:center;
+}
+
+.unranked-cell {
+    max-width: calc(20px + 10vmin);
+    text-align: center;
+}
+
+.unranked-cell > img{
+    object-fit: cover;
+    width:100%;
+    height:100%;
+}
+
+/*RANKING GRID*/
+.rankings {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    justify-self: center;
+    margin-bottom: 15px;
+    border-top: solid 3px black;
+    border-left: solid 3px black;
+    border-right: solid 3px black;
+}
+
+.rank-row {
+    min-height: calc(20px + 10vmin);
+    display: flex;
+    justify-content: start;
+    background-color: #363636;
+    border-bottom: solid 3px black;
+}
+
+.rank-label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: calc(20px + 10vmin);
+    border-right: solid 3px black;
+}
+
+.rank-label h4 {
+    margin: 0px calc(10px + 5vmin);
+}
+
+.top-tier .rank-label{
+    background-color: #eb4034;
+}
+.middle-tier .rank-label {
+    background-color: #eb9f34;
+}
+.bottom-tier .rank-label {
+    background-color: #ebe534;
+}
+.worst-tier .rank-label {
+    background-color: #aeeb34;
+}

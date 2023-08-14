@@ -1,4 +1,6 @@
-﻿import React, { useState, useEffect } from 'react'
+﻿import React, { useState, useEffect } from 'react';
+import GameImageArr from './GameImages.js';
+import RankingGrid from './RankingGrid.js';
 
 const RankItems = () => {
 
@@ -21,9 +23,19 @@ const RankItems = () => {
     //This is the actual rendering part of the React component. 
     return (
         <main>
-            {
-                (items.length >  0) ? items.map((item) => <h3 key={item.Id}>{item.title}</h3>) : <div>Loading...</div>
-            }
+            <RankingGrid items={items} imgArr={GameImageArr} />
+            <div className="items-not-ranked">
+                {
+                    (items.length > 0) ?
+                        items.map((item) =>
+
+                            <div className="unranked-cell" key={item.id}>
+                                <img id={`item-${item.id}`} src={GameImageArr.find(o => o.id === item.imageId)?.image} alt="item logo"></img>
+                        </div>)
+                        :
+                        <div>Loading...</div>
+                }
+            </div>
         </main>
     )
 }
