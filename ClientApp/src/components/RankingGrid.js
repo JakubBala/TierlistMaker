@@ -48,10 +48,10 @@ const RankingGrid = ({ items, imgArr, drag, allowDrop, drop}) => {
     }
 
     function createRowsForGrid() {
-        rankingGrid.push(<div className="rank-row top-tier">{cellCollectionTop}</div>)
-        rankingGrid.push(<div className="rank-row middle-tier">{cellCollectionMiddle}</div>)
-        rankingGrid.push(<div className="rank-row bottom-tier">{cellCollectionBottom}</div>)
-        rankingGrid.push(<div className="rank-row worst-tier">{cellCollectionWorst}</div>)
+        rankingGrid.push(<div id="row-1" className="rank-row top-tier">{cellCollectionTop}</div>)
+        rankingGrid.push(<div id="row-2" className="rank-row middle-tier">{cellCollectionMiddle}</div>)
+        rankingGrid.push(<div id="row-3" className="rank-row bottom-tier">{cellCollectionBottom}</div>)
+        rankingGrid.push(<div id="row-4" className="rank-row worst-tier">{cellCollectionWorst}</div>)
 
         return rankingGrid;
     }
