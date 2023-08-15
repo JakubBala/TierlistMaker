@@ -57,6 +57,7 @@ main{
     justify-content: flex-start;
     background-color: #363636;
     border-bottom: solid 3px black;
+    padding-right:3vmin;
 }
 
 .rank-label {
@@ -65,6 +66,7 @@ main{
     align-items: center;
     max-width: calc(20px + 10vmin);
     border-right: solid 3px black;
+    pointer-events: none;
 }
 
 .rank-label h4 {
@@ -84,9 +86,19 @@ main{
     background-color: #aeeb34;
 }
 
+.drop-area {
+    pointer-events: none;
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
 .rank-cell {
     width: calc(30px + 10vmin);
-    padding: 5px 10px
+    padding: 5px 10px;
+    pointer-events: all;
+    cursor: pointer;
 }
 
 .rank-cell img {

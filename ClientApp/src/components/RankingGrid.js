@@ -1,4 +1,6 @@
-const RankingGrid = ({ items, imgArr, drag, allowDrop, drop}) => {
+import Item from './Item.js'
+
+const RankingGrid = ({ items, imgArr, drag, allowDrop, drop }) => {
 
     const rankingGrid = [];
     const cellCollectionTop = [];
@@ -9,35 +11,33 @@ const RankingGrid = ({ items, imgArr, drag, allowDrop, drop}) => {
     const labels = ["S", "A", "B", "C"];
     var collections = [cellCollectionTop, cellCollectionMiddle, cellCollectionBottom, cellCollectionWorst];
 
-    function pushCellMarkupToArr(cellCollection, rankNum, rowLabel) {
-        if (rankNum > 0) {
-            var item = items.find(o => o.ranking === rankNum);
-            cellCollection.push(<div id={`rank-${rankNum}`} className="rank-cell" onDrop={drop} onDragOver={allowDrop}>
-                {(item != null)
-                    ? <img id={`item-${item.id}`} src={imgArr.find(o => o.id === item.imageId)?.image} draggable="true" onDragStart={drag} alt="img"/>
-                    : null}
-            </div>)
-        }
-        else {
-            cellCollection.push(<div id={`rank-${rankNum}`} className="rank-label">
-                <h4>{rowLabel}</h4>
-            </div>)
-        }
+    function pushCellMarkupToArr(item, cellCollection, rowNum) {
+
+        cellCollection.push(<div key={ `itemrank-${rowNum}-${item.ranking}`} id={`rank-${rowNum}-${item.ranking}`} className="rank-cell">
+            <Item item={item} drag={drag} itemImgObj={imgArr.find(o => o.id === item.imageId)} />
+        </div>)
     }
 
     function createCellsForRow(rowNum) {
-        var rankNum = 0; //overall rank out of max 16 (top left = 1, bottom right = 16)
-        var currCollection = [];
-        var label = "";
-        const numCells = 5;
+        const cellsInThisRow = items
+            .filter((item) => item.rowNum === rowNum)
+            .sort((a, b) => a.ranking - b.ranking); // Sort by ranking
 
-        for (var a = 1; a <= numCells; a++) {
-            rankNum = (a === 1) ? 0 : ((numCells - 1) * (rowNum - 1)) + a -1;
-            label = labels[rowNum - 1];
-            currCollection = collections[rowNum - 1];
+        var currCollection = collections[rowNum - 1];
 
-            pushCellMarkupToArr(currCollection, rankNum, label);
-        }
+        //go through every item that has this row number
+        cellsInThisRow.forEach((item) => {
+            pushCellMarkupToArr(item, currCollection, rowNum);
+        });
+    }
+    function createLabelForRow(rowNum) {
+        //create row label
+        var label = labels[rowNum - 1];
+
+        return (
+            <div className="rank-label">
+                <h4>{label}</h4>
+            </div>)
     }
 
     function createCellsForRows() {
@@ -48,10 +48,14 @@ const RankingGrid = ({ items, imgArr, drag, allowDrop, drop}) => {
     }
 
     function createRowsForGrid() {
-        rankingGrid.push(<div id="row-1" className="rank-row top-tier">{cellCollectionTop}</div>)
-        rankingGrid.push(<div id="row-2" className="rank-row middle-tier">{cellCollectionMiddle}</div>)
-        rankingGrid.push(<div id="row-3" className="rank-row bottom-tier">{cellCollectionBottom}</div>)
-        rankingGrid.push(<div id="row-4" className="rank-row worst-tier">{cellCollectionWorst}</div>)
+        rankingGrid.push(<div key="row-1" id="row-1" className="rank-row top-tier" onDrop={drop} onDragOver={allowDrop}>
+            {createLabelForRow(1)}<div className="drop-area">{cellCollectionTop}</div></div>)
+        rankingGrid.push(<div key="row-2" id="row-2" className="rank-row middle-tier" onDrop={drop} onDragOver={allowDrop}>
+            {createLabelForRow(2)}<div className="drop-area">{cellCollectionMiddle}</div></div>)
+        rankingGrid.push(<div key="row-3" id="row-3" className="rank-row bottom-tier" onDrop={drop} onDragOver={allowDrop}>
+            {createLabelForRow(3)}<div className="drop-area">{cellCollectionBottom}</div></div>)
+        rankingGrid.push(<div key="row-4" id="row-4" className="rank-row worst-tier" onDrop={drop} onDragOver={allowDrop}>
+            {createLabelForRow(4)}<div className="drop-area">{cellCollectionWorst}</div></div>)
 
         return rankingGrid;
     }
