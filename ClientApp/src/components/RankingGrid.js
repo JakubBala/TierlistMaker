@@ -1,4 +1,5 @@
-import Item from './Item.js'
+import Item from './Item.js';
+import GridRow from './GridRow.js';
 
 const RankingGrid = ({ items, imgArr, drag, allowDrop, drop }) => {
 
@@ -13,7 +14,7 @@ const RankingGrid = ({ items, imgArr, drag, allowDrop, drop }) => {
 
     function pushCellMarkupToArr(item, cellCollection, rowNum) {
 
-        cellCollection.push(<div key={ `itemrank-${rowNum}-${item.ranking}`} id={`rank-${rowNum}-${item.ranking}`} className="rank-cell">
+        cellCollection.push(<div key={`itemrank-${rowNum}-${item.ranking}`} id={`rank-${rowNum}-${item.ranking}`} className="rank-cell">
             <Item item={item} drag={drag} itemImgObj={imgArr.find(o => o.id === item.imageId)} />
         </div>)
     }
@@ -30,15 +31,6 @@ const RankingGrid = ({ items, imgArr, drag, allowDrop, drop }) => {
             pushCellMarkupToArr(item, currCollection, rowNum);
         });
     }
-    function createLabelForRow(rowNum) {
-        //create row label
-        var label = labels[rowNum - 1];
-
-        return (
-            <div className="rank-label">
-                <h4>{label}</h4>
-            </div>)
-    }
 
     function createCellsForRows() {
         const maxRows = 4;
@@ -48,14 +40,11 @@ const RankingGrid = ({ items, imgArr, drag, allowDrop, drop }) => {
     }
 
     function createRowsForGrid() {
-        rankingGrid.push(<div key="row-1" id="row-1" className="rank-row top-tier" onDrop={drop} onDragOver={allowDrop}>
-            {createLabelForRow(1)}<div className="drop-area">{cellCollectionTop}</div></div>)
-        rankingGrid.push(<div key="row-2" id="row-2" className="rank-row middle-tier" onDrop={drop} onDragOver={allowDrop}>
-            {createLabelForRow(2)}<div className="drop-area">{cellCollectionMiddle}</div></div>)
-        rankingGrid.push(<div key="row-3" id="row-3" className="rank-row bottom-tier" onDrop={drop} onDragOver={allowDrop}>
-            {createLabelForRow(3)}<div className="drop-area">{cellCollectionBottom}</div></div>)
-        rankingGrid.push(<div key="row-4" id="row-4" className="rank-row worst-tier" onDrop={drop} onDragOver={allowDrop}>
-            {createLabelForRow(4)}<div className="drop-area">{cellCollectionWorst}</div></div>)
+
+        rankingGrid.push(<GridRow key="row-1" cellCollection={cellCollectionTop} labels={labels} rowNum={1} rowName={"top-tier"} drop={drop} allowDrop={allowDrop} />)
+        rankingGrid.push(<GridRow key="row-2" cellCollection={cellCollectionMiddle} labels={labels} rowNum={2} rowName={"middle-tier"} drop={drop} allowDrop={allowDrop} />)
+        rankingGrid.push(<GridRow key="row-3" cellCollection={cellCollectionBottom} labels={labels} rowNum={3} rowName={"bottom-tier"} drop={drop} allowDrop={allowDrop} />)
+        rankingGrid.push(<GridRow key="row-4" cellCollection={cellCollectionWorst} labels={labels} rowNum={4} rowName={"worst-tier"} drop={drop} allowDrop={allowDrop} />)
 
         return rankingGrid;
     }

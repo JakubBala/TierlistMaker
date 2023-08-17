@@ -1,12 +1,14 @@
-﻿import React, { useState, useEffect } from 'react';
-import GameImageArr from './GameImages.js';
+﻿import { useEffect, useState } from 'react';
 import RankingGrid from './RankingGrid.js';
 import ItemCollection from './ItemCollection.js';
 
-const RankItems = () => {
+const RankItems = ({ items, setItems, dataType, imgArr, localStorageKey}) => {
 
-    const [items, setItems] = useState([]);
-    const dataType = 1;
+    const [reload, setReload] = useState(false);
+
+    function reloadItems() {
+        setReload(true);
+    }
 
     function drag(ev) {
         //get id of element we are dragging
@@ -73,8 +75,14 @@ const RankItems = () => {
         }
     }
 
-    //this will run when the component first is rendered
+    //this will run whenever dataType changes and re-render the component
     useEffect(() => {
+        if (items == null) {
+            getDataFromApi();
+        }
+    }, [dataType]);
+
+    function getDataFromApi() {
         fetch(`item/${dataType}`)
             .then((results) => {
                 return results.json();
@@ -83,15 +91,33 @@ const RankItems = () => {
                 setItems(data);
                 console.log(data);
             })
-    }, []);
+    }
+
+    //this will run whenever items changes, prompting a re-render and a save to local storage
+    useEffect(() => {
+        if (items != null) {
+            localStorage.setItem(localStorageKey, JSON.stringify(items));
+        }
+        setReload(false);
+    }, [items]);
+
+    //this will run whenever the reload state changes to true (button clicked)
+    useEffect(() => {
+        if (reload === true) {
+            getDataFromApi();
+        }
+    }, [reload]);
 
 
     //This is the actual rendering part of the React component. 
     return (
+        (items != null)?
         <main>
-            <RankingGrid items={items} imgArr={GameImageArr} drag={drag} allowDrop={allowDrop} drop={drop} />
-            <ItemCollection items={items} imgArr={GameImageArr} drag={drag} />
-        </main>
+            <RankingGrid items={items} imgArr={imgArr} drag={drag} allowDrop={allowDrop} drop={drop} />
+                <ItemCollection items={items} imgArr={imgArr} drag={drag} />
+                <button onClick={reloadItems}>Reload</button>
+            </main>
+        :<main>Loading...</main>
     )
 }
 export default RankItems;

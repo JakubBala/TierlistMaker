@@ -16,7 +16,13 @@ namespace TierlistMaker.Controllers
             new ItemModel { Id = 5, Title = "Rainbow 6 Seige", ImageId = 5, RowNum = 0, Ranking = 0, ItemType = 1 },
             new ItemModel { Id = 6, Title = "Rocket League", ImageId = 6, RowNum = 0, Ranking = 0, ItemType = 1 },
             new ItemModel { Id = 7, Title = "Overwatch", ImageId = 4, RowNum = 0, Ranking = 0, ItemType = 1 },
-            new ItemModel { Id = 8, Title = "Super Smash Bros", ImageId = 7,RowNum = 0, Ranking = 0, ItemType = 1 }
+            new ItemModel { Id = 8, Title = "Super Smash Bros", ImageId = 7,RowNum = 0, Ranking = 0, ItemType = 1 },
+
+            new ItemModel {Id = 9, Title = "France", ImageId = 9, RowNum = 0, Ranking=0, ItemType = 2 },
+            new ItemModel {Id = 10, Title = "GB", ImageId = 10, RowNum = 0, Ranking=0, ItemType = 2 },
+            new ItemModel {Id = 11, Title = "Germany", ImageId = 11, RowNum = 0, Ranking=0, ItemType = 2 },
+            new ItemModel {Id = 12, Title = "Italy", ImageId = 12, RowNum = 0, Ranking=0, ItemType = 2 },
+            new ItemModel {Id = 13, Title = "Poland", ImageId = 13, RowNum = 0, Ranking=0, ItemType = 2 }
         };
 
 
