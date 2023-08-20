@@ -1,7 +1,7 @@
 import { Counter } from "./components/Counter";
 import { FetchData } from "./components/FetchData";
 import RankItemsContainer from "./components/RankItemsContainer";
-import { Home } from "./components/Home";
+import Home from "./components/Home.jsx";
 import GameImageArr from './components/GameImages.js';
 import CountryImageArr from './components/CountryImages.js';
 

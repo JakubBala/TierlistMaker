@@ -1,11 +1,11 @@
 ﻿import {useState } from 'react'
-import RankItems from './RankItems.js'
+import RankItems from './RankItems.jsx'
+import Typography from '@mui/material/Typography'
 
 const RankItemsContainer = ({ dataType, imgArr }) => {
 
     const gameLocalStorageKey = "games";
     const countryLocalStorageKey = "countries";
-
     var localStorageKey = "";
 
     const [gameItems, setGameItems] = useState(JSON.parse(localStorage.getItem(gameLocalStorageKey)))
@@ -25,7 +25,10 @@ const RankItemsContainer = ({ dataType, imgArr }) => {
     }
 
     return (
-        <RankItems items={data} setItems={setFunc} dataType={dataType} imgArr={imgArr} localStorageKey={localStorageKey} />
+        <div>
+            <Typography>MUI Typography</Typography>
+            <RankItems items={data} setItems={setFunc} dataType={dataType} imgArr={imgArr} localStorageKey={localStorageKey} />
+        </div>
     )
 }
 export default RankItemsContainer;
